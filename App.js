@@ -1,29 +1,24 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, View, FlatList, SafeAreaView } from 'react-native';
+import ListItem from './components/ListItem';
+import articles from './dummies/articles.json';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <View style={styles.itemContainer}>
-        <View style={styles.leftContainer}>
-          <Image
-            style={{ width: 100, height: 100 }}
-            source={{
-              uri: 'https://picsum.photos/id/237/200/300',
-            }}
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        data={articles}
+        renderItem={({ item }) => (
+          <ListItem
+            imageUrl={item.urlToImage}
+            title={item.title}
+            author={item.author}
           />
-        </View>
-        <View style={styles.rightContainer}>
-          <Text numberOfLines={3} style={styles.text}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation{' '}
-          </Text>
-          <Text style={styles.subText}>React News</Text>
-        </View>
-      </View>
-    </View>
+        )}
+        keyExtractor={(item, index) => index.toString()}
+      />
+    </SafeAreaView>
   );
 }
 
@@ -33,8 +28,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   itemContainer: {
     height: 100,
