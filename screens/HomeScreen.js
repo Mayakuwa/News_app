@@ -6,9 +6,7 @@ import axios from 'axios';
 
 const URL = `http://newsapi.org/v2/top-headlines?country=jp&apiKey=${Constants.manifest.extra.newsApiKey}`;
 
-export default HomeScreen = (props) => {
-  const { navigation } = props;
-
+export default HomeScreen = ({ navigation }) => {
   const [articles, setArticles] = useState([]);
   useEffect(() => {
     fetchArticles();
