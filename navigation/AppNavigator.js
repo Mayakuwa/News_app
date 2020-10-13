@@ -36,6 +36,7 @@ const Clipstack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Clip" component={ClipScreen} />
+      <Stack.Screen name="Article" component={ArticleScreen} />
     </Stack.Navigator>
   );
 };
