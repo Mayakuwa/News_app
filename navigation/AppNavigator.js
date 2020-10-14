@@ -13,8 +13,16 @@ const Tab = createBottomTabNavigator();
 const HomeStack = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="Article" component={ArticleScreen} />
+      <Stack.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Article"
+        component={ArticleScreen}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   );
 };
@@ -35,8 +43,16 @@ const screenOption = ({ route }) => ({
 const Clipstack = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Clip" component={ClipScreen} />
-      <Stack.Screen name="Article" component={ArticleScreen} />
+      <Stack.Screen
+        name="Clip"
+        component={ClipScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Article"
+        component={ArticleScreen}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   );
 };

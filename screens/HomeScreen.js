@@ -4,8 +4,19 @@ import ListItem from '../components/ListItem';
 import Constants from 'expo-constants';
 import axios from 'axios';
 import Loading from '../components/Loading';
+import {
+  Container,
+  Header,
+  Title,
+  Button,
+  Left,
+  Right,
+  Body,
+  Icon,
+} from 'native-base';
 
 const URL = `http://newsapi.org/v2/top-headlines?country=jp&apiKey=${Constants.manifest.extra.newsApiKey}`;
+const URL2 = `http://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=${Constants.manifest.extra.newsApiKey}`;
 
 export default HomeScreen = (props) => {
   const [articles, setArticles] = useState([]);
@@ -30,6 +41,17 @@ export default HomeScreen = (props) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <Header>
+        <Left>
+          <Button transparent>
+            <Icon name="menu" />
+          </Button>
+        </Left>
+        <Body>
+          <Title>Home</Title>
+        </Body>
+        <Right />
+      </Header>
       <FlatList
         data={articles}
         renderItem={({ item }) => (

@@ -2,6 +2,16 @@ import React from 'react';
 import { StyleSheet, SafeAreaView, FlatList } from 'react-native';
 import ListItem from '../components/ListItem';
 import { useSelector } from 'react-redux';
+import {
+  Container,
+  Header,
+  Title,
+  Button,
+  Left,
+  Right,
+  Body,
+  Icon,
+} from 'native-base';
 
 export default ClipScreen = (props) => {
   const user = useSelector((state) => state.user);
@@ -9,6 +19,13 @@ export default ClipScreen = (props) => {
 
   return (
     <SafeAreaView styles={styles.container}>
+      <Header>
+        <Left />
+        <Body>
+          <Title>Clip</Title>
+        </Body>
+        <Right />
+      </Header>
       <FlatList
         data={clips}
         renderItem={({ item }) => (
