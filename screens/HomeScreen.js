@@ -1,9 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, FlatList, SafeAreaView } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  FlatList,
+  SafeAreaView,
+  TouchableOpacity,
+} from 'react-native';
 import ListItem from '../components/ListItem';
 import Constants from 'expo-constants';
 import axios from 'axios';
 import Loading from '../components/Loading';
+import {
+  NavigationContainer,
+  DrawerActions,
+  useNavigation,
+} from '@react-navigation/native';
+import {
+  createDrawerNavigator,
+  DrawerContentScrollView,
+  DrawerItemList,
+  DrawerItem,
+} from '@react-navigation/drawer';
 import {
   Container,
   Header,
@@ -14,6 +31,8 @@ import {
   Body,
   Icon,
 } from 'native-base';
+
+import RNPickerSelect from 'react-native-picker-select';
 
 const URL = `http://newsapi.org/v2/top-headlines?country=jp&apiKey=${Constants.manifest.extra.newsApiKey}`;
 const URL2 = `http://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=${Constants.manifest.extra.newsApiKey}`;
@@ -44,7 +63,14 @@ export default HomeScreen = (props) => {
       <Header>
         <Left>
           <Button transparent>
-            <Icon name="menu" />
+            <TouchableOpacity>
+              <Icon
+                name="menu"
+                onPress={() =>
+                  props.navigation.dispatch(DrawerActions.openDrawer())
+                }
+              />
+            </TouchableOpacity>
           </Button>
         </Left>
         <Body>

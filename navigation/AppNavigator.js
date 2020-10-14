@@ -2,13 +2,29 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import HomeScreen from '../screens/HomeScreen.js';
 import ArticleScreen from '../screens/ArticleScreen.js';
 import ClipScreen from '../screens/ClipScreen.js';
 import { FontAwesome } from '@expo/vector-icons';
+import Menu from '../screens/Menu';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+const Drawer = createDrawerNavigator();
+
+const screenOption = ({ route }) => ({
+  tabBarIcon: ({ color, size }) => {
+    let iconName;
+
+    if (route.name === 'Home') {
+      iconName = 'home';
+    } else if (route.name === 'Clip') {
+      iconName = 'bookmark';
+    }
+    return <FontAwesome name={iconName} size={size} color={color} />;
+  },
+});
 
 const HomeStack = () => {
   return (
@@ -27,19 +43,6 @@ const HomeStack = () => {
   );
 };
 
-const screenOption = ({ route }) => ({
-  tabBarIcon: ({ color, size }) => {
-    let iconName;
-
-    if (route.name === 'Home') {
-      iconName = 'home';
-    } else if (route.name === 'Clip') {
-      iconName = 'bookmark';
-    }
-    return <FontAwesome name={iconName} size={size} color={color} />;
-  },
-});
-
 const Clipstack = () => {
   return (
     <Stack.Navigator>
@@ -57,13 +60,34 @@ const Clipstack = () => {
   );
 };
 
+const TabNabigator = () => {
+  return (
+    <Tab.Navigator screenOptions={screenOption}>
+      <Tab.Screen name="Home" component={HomeStack} />
+      <Tab.Screen name="Clip" component={Clipstack} />
+    </Tab.Navigator>
+  );
+};
+
+const DropNavigator = () => {
+  return (
+    <Drawer.Navigator initialRouteName="Home">
+      <Drawer.Screen name="Tab" component={TabNabigator} />
+      <Drawer.Screen name="Menu" component={Menu} />
+    </Drawer.Navigator>
+  );
+};
+
 export default AppNavigator = () => {
   return (
     <NavigationContainer>
-      <Tab.Navigator screenOptions={screenOption}>
-        <Tab.Screen name="Home" component={HomeStack} />
-        <Tab.Screen name="Clip" component={Clipstack} />
-      </Tab.Navigator>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="draw"
+          component={DropNavigator}
+          options={{ headerShown: false }}
+        />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 };
