@@ -1,21 +1,28 @@
 import React from 'react';
-import { StyleSheet, SafeAreaView, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, SafeAreaView, Text, TouchableOpacity } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { useDispatch, useSelector } from 'react-redux';
 import { addClip, deleteClip } from '../store/actions/user';
 import ClipButton from '../components/ClipButton';
+import Loading from '../components/Loading';
 
-export default ArticleScreen = ({ route }) => {
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+});
+
+export default ArticleScreen = (props) => {
+  const { route } = props;
   const { article } = route.params;
+
+  const user = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
 
-  const user = useSelector((state) => state.user);
-  const { clips } = user;
-
-  //クリップがあるかどうかの判定 true,falseで返す
   const isClipped = () => {
-    return clips.some((clip) => clip.url === article.url);
+    return user.clips.some((clip) => clip.url === article.url);
   };
 
   const toggleClip = () => {
@@ -29,14 +36,11 @@ export default ArticleScreen = ({ route }) => {
   return (
     <SafeAreaView style={styles.container}>
       <ClipButton onPress={toggleClip} enabled={isClipped()} />
-      <WebView source={{ uri: article.url }} originWhitelist={['*']} />
+      <WebView
+        source={{ uri: article.url }}
+        startInLoadingState={true}
+        renderLoading={() => <Loading />}
+      />
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-});
